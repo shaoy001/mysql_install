@@ -85,7 +85,7 @@ class mysql_install():
         else:
             Logger(self.file_name).get_logger().info("mysql base path exist")
             return 20006, 'mysql base path exist'
-        return True
+        return -1
 
     def dir_make(self):
         """
