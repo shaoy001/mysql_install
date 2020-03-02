@@ -218,8 +218,9 @@ class mysql_install():
             subprocess.call(cmd, shell=True)
             result = self.mysql_base + '/bin/mysqld ' + ' --defaults-file=' + self.mysql_data_path + '/my.cnf.' \
                      + self.port + ' --initialize-insecure --user=mysql >>/dev/null 2>&1'
+            print(result)
             if not subprocess.call(result, shell=True) == 0:
-                Logger(self.file_name).get_logger().info("chmod mysql data or base fail")
+                Logger(self.file_name).get_logger().info("mysql start fail")
                 return False
         shutil.copy(self.mysqlserver, self.service)
         cmds = ["sed -i 's/PORT/%s/g' %s" % (self.port, self.service),
