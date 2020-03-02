@@ -16,6 +16,7 @@ import argparse
 import subprocess
 import time
 from logs import Logger
+file_name = sys.argv[0]
 
 pro_path = os.path.dirname(sys.path[0])
 sys.path.append(pro_path)
@@ -40,6 +41,7 @@ class mysql_install():
         self.mysqlserver = mysqlserver
         self.mysql_document = os.path.join(self.mysql_data_path, self.mysql_package[:-7])
         self.service = os.path.join(self.mysql_base, 'bin', 'mysql.server.' + str(self.port))
+        self.file_name = file_name
 
     def run(self):
 
@@ -61,7 +63,7 @@ class mysql_install():
         mdatap = os.path.isdir(self.mysql_data_path)
         mpak = os.path.exists(self.mysql_package)
         if not self.group_check():
-            Logger.get_logger.info("group check fail")
+            Logger(self.file_name).get_logger().info("group check fail")
             os.system('groupadd mysql')
         if not self.user_check():
             os.system('useradd -r -g mysql -s /sbin/nologin mysql')
