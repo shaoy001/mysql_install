@@ -15,6 +15,7 @@ import fileinput
 import argparse
 import subprocess
 import time
+from logs import Logger
 
 pro_path = os.path.dirname(sys.path[0])
 sys.path.append(pro_path)
@@ -59,10 +60,11 @@ class mysql_install():
         mbase = os.path.isdir(self.mysql_base)
         mdatap = os.path.isdir(self.mysql_data_path)
         mpak = os.path.exists(self.mysql_package)
+        if not self.group_check():
+            Logger.get_logger.info("group check fail")
+            os.system('groupadd mysql')
         if not self.user_check():
             os.system('useradd -r -g mysql -s /sbin/nologin mysql')
-        if not self.group_check():
-            os.system('groupadd mysql')
         if mbase == False:
             if mdatap == False:
                 if mpak == False:
