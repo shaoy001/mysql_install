@@ -28,7 +28,6 @@ class Logger(object):
         self.name = name
         self.logfile = logfile
         self.logger = logging.getLogger(self.name)
-        print(logfile,size,counts)
         self.fh = logging.handlers.RotatingFileHandler(self.logfile, maxBytes=size, backupCount=counts, encoding='utf8')
         self.ch = logging.StreamHandler(sys.stdout)
 
