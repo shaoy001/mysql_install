@@ -217,12 +217,12 @@ class mysql_install():
         cmd_mod = ['chmod -R 755 %s' % self.mysql_base, 'chmod -R 750 %s/bin' % self.mysql_base]
         for cmd in cmd_mod:
             subprocess.call(cmd, shell=True)
-        Logger(self.file_name).get_logger().info("start mysql...")
+        Logger(self.file_name).get_logger().info("start init mysql...")
         result = self.mysql_base + '/bin/mysqld ' + ' --defaults-file=' + self.mysql_data_path + '/my.cnf.' \
                      + self.port + ' --initialize-insecure --user=mysql >>/dev/null 2>&1'
         print(result)
         if not subprocess.call(result, shell=True) == 0:
-            Logger(self.file_name).get_logger().info("mysql start fail")
+            Logger(self.file_name).get_logger().info("mysql init fail")
             return False
         shutil.copy(self.mysqlserver, self.service)
         cmds = ["sed -i 's/PORT/%s/g' %s" % (self.port, self.service),
@@ -232,6 +232,12 @@ class mysql_install():
                 "rm -rf %s/my.cnf" % self.mysql_base]
         for cmd in cmds:
             subprocess.call(cmd, shell=True)
+        Logger(self.file_name).get_logger().info("mysql starting......")
+        result3 = '{0} restart'.format(self.service)
+        if not subprocess.call(result3, shell=True) == 0:
+            Logger(self.file_name).get_logger().info("mysql start fail")
+            return False
+
         return True
 
     def mysql_user_grant(self):
