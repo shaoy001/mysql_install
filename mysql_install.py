@@ -47,6 +47,7 @@ class mysql_install():
 
         res_check = self.env_check()
         if res_check[0] > 0:
+            Logger(self.file_name).get_logger().info("res_check result is %s"(res_check[0]))
             return res_check
         if not self.dir_make():
             Logger(self.file_name).get_logger().info("mysql dir make failed")
