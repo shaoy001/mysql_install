@@ -45,10 +45,7 @@ class mysql_install():
 
     def run(self):
 
-        res_check = self.env_check()
-        if res_check[0] > 0:
-            Logger(self.file_name).get_logger().info("res_check result is %s"(res_check[0]))
-            return res_check
+        self.env_check()
         if not self.dir_make():
             Logger(self.file_name).get_logger().info("mysql dir make failed")
             return 20002, 'mysql dir make failed'
@@ -69,23 +66,21 @@ class mysql_install():
         mdatap = os.path.isdir(self.mysql_data_path)
         mpak = os.path.exists(self.mysql_package)
         if not self.group_check():
-            Logger(self.file_name).get_logger().info("group check fail")
             os.system('groupadd mysql')
         if not self.user_check():
-            Logger(self.file_name).get_logger().info("mysql user check fail")
             os.system('useradd -r -g mysql -s /sbin/nologin mysql')
         if mbase == False:
             if mdatap == False:
                 if mpak == False:
                     Logger(self.file_name).get_logger().info("mysql package not exist")
-                    return 20008, 'mysql package not exist'
+                    return False
             else:
                 Logger(self.file_name).get_logger().info("mysql data path exist")
-                return 20007, 'mysql data path exist'
+                return False
         else:
             Logger(self.file_name).get_logger().info("mysql base path exist")
-            return 20006, 'mysql base path exist'
-        return -1
+            return False
+        return True
 
     def dir_make(self):
         """
