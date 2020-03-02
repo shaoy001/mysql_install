@@ -49,14 +49,19 @@ class mysql_install():
         if res_check[0] > 0:
             return res_check
         if not self.dir_make():
+            Logger(self.file_name).get_logger().info("mysql dir make failed")
             return 20002, 'mysql dir make failed'
         if not self.cnf_make():
+            Logger(self.file_name).get_logger().info("my.cnf update failed")
             return 20001, 'my.cnf update failed'
         if not self.mysql_install():
+            Logger(self.file_name).get_logger().info("mysql install failed")
             return 20003, 'mysql install failed'
         time.sleep(15)
         if not self.mysql_user_grant():
+            Logger(self.file_name).get_logger().info("grants failed")
             return 20010, 'grants failed'
+        return True
 
     def env_check(self):
         mbase = os.path.isdir(self.mysql_base)
@@ -66,14 +71,18 @@ class mysql_install():
             Logger(self.file_name).get_logger().info("group check fail")
             os.system('groupadd mysql')
         if not self.user_check():
+            Logger(self.file_name).get_logger().info("mysql user check fail")
             os.system('useradd -r -g mysql -s /sbin/nologin mysql')
         if mbase == False:
             if mdatap == False:
                 if mpak == False:
+                    Logger(self.file_name).get_logger().info("mysql package not exist")
                     return 20008, 'mysql package not exist'
             else:
+                Logger(self.file_name).get_logger().info("mysql data path exist")
                 return 20007, 'mysql data path exist'
         else:
+            Logger(self.file_name).get_logger().info("mysql base path exist")
             return 20006, 'mysql base path exist'
         return True
 
@@ -116,12 +125,14 @@ class mysql_install():
         muser = os.popen("cat /etc/passwd |grep -w mysql|awk -F':' '{print $1}'").read().strip('\n')
         if not muser == '':
             return True
+        Logger(self.file_name).get_logger().info("user check fial2")
         return False
 
     def group_check(self):
         mgroup = os.popen("cat /etc/group |grep -w mysql|awk -F':' '{print $1}'").read().strip('\n')
         if not mgroup == '':
             return True
+        Logger(self.file_name).get_logger().error("group check fail2")
         return False
 
     def cnf_make(self):
@@ -200,9 +211,11 @@ class mysql_install():
         os.renames(self.mysql_document, self.mysql_base)
         cmd_own_confirm = "chown -R mysql.mysql {}".format(self.mysql_base)
         if not subprocess.call(cmd_own_confirm, shell=True) == 0:
+            Logger(self.file_name).get_logger().info("chown mysql base fail")
             return False
         cmd_mod_green = "chmod -R g+rw {}".format(self.mysql_data_path)
         if not subprocess.call(cmd_mod_green, shell=True) == 0:
+            Logger(self.file_name).get_logger().info("chow mysql data fail")
             return False
         cmd_mod = ['chmod -R 755 %s' % self.mysql_base, 'chmod -R 750 %s/bin' % self.mysql_base]
         for cmd in cmd_mod:
@@ -210,6 +223,7 @@ class mysql_install():
             result = self.mysql_base + '/bin/mysqld ' + ' --defaults-file=' + self.mysql_data_path + '/my.cnf.' \
                      + self.port + ' --initialize-insecure --user=mysql >>/dev/null 2>&1'
             if not subprocess.call(result, shell=True) == 0:
+                Logger(self.file_name).get_logger().info("chmod mysql data or base fail")
                 return False
         shutil.copy(self.mysqlserver, self.service)
         cmds = ["sed -i 's/PORT/%s/g' %s" % (self.port, self.service),
