@@ -200,6 +200,7 @@ class mysql_install():
         return True
 
     def mysql_install(self):
+        Logger(self.file_name).get_logger().info("start unzip mysql package...")
         t = tarfile.open(self.mysql_package, "r:gz")
         t.extractall(path=self.mysql_data_path)
         t.close()
@@ -216,12 +217,13 @@ class mysql_install():
         cmd_mod = ['chmod -R 755 %s' % self.mysql_base, 'chmod -R 750 %s/bin' % self.mysql_base]
         for cmd in cmd_mod:
             subprocess.call(cmd, shell=True)
-            result = self.mysql_base + '/bin/mysqld ' + ' --defaults-file=' + self.mysql_data_path + '/my.cnf.' \
+        Logger(self.file_name).get_logger().info("start mysql...")
+        result = self.mysql_base + '/bin/mysqld ' + ' --defaults-file=' + self.mysql_data_path + '/my.cnf.' \
                      + self.port + ' --initialize-insecure --user=mysql >>/dev/null 2>&1'
-            print(result)
-            if not subprocess.call(result, shell=True) == 0:
-                Logger(self.file_name).get_logger().info("mysql start fail")
-                return False
+        print(result)
+        if not subprocess.call(result, shell=True) == 0:
+            Logger(self.file_name).get_logger().info("mysql start fail")
+            return False
         shutil.copy(self.mysqlserver, self.service)
         cmds = ["sed -i 's/PORT/%s/g' %s" % (self.port, self.service),
                 "sed -i 's/PATH_ROOT/\%s/g' %s" % ('/data', self.service),
