@@ -245,26 +245,28 @@ class mysql_install():
 
         :return:
         """
-        self.hotdb_root = "root"
-        self.hotdb_root_pd = "12345678!"
+        self.root = "root"
+        self.root_pd = "12345678!"
         self.user = "lzy001"
         self.passwd = "12345678!"
         conn = "%s/bin/mysql -S %s/sock/mysql.sock -P%s"%(self.mysql_base, self.mysql_data_path,self.port)
-        sql = ["delete from mysql.user where user='' or host not in ('localhost')",
+        sql1s = ["delete from mysql.user where user='' or host not in ('localhost')",
                "create user %s@'%%' IDENTIFIED BY '%s'" % (self.user, self.passwd),
                "GRANT ALL PRIVILEGES ON *.* TO %s@'*'" % (self.user),
                 "GRANT ALL PRIVILEGES ON *.* TO %s@'localhost' IDENTIFIED BY '%s' WITH GRANT OPTION" % (
-                    self.hotdb_root, self.hotdb_root_pd),
-                "GRANT ALL PRIVILEGES ON *.* TO %s@'127.0.0.1' IDENTIFIED BY '%s' WITH GRANT OPTION" % (
-                    self.hotdb_root, self.hotdb_root_pd),
+                    self.root, self.root_pd)]
+        sql2s =  ["GRANT ALL PRIVILEGES ON *.* TO %s@'127.0.0.1' IDENTIFIED BY '%s' WITH GRANT OPTION" % (
+                    self.root, self.root_pd),
                 "GRANT PROXY ON ''@'' TO %s@'127.0.0.1' WITH GRANT OPTION" % (
-                    self.hotdb_root),
+                    self.root),
                 "flush privileges"]
 
-        for sql1 in sql:
-            sql2 = "%s -e \"%s\""%(conn, sql1)
-            print(sql2)
-            subprocess.call(sql2, shell=True)
+        for sql1 in sql1s:
+            sql = "%s -e \"%s\""%(conn, sql1)
+            subprocess.call(sql, shell=True)
+        for sql2 in sql2s:
+            sql = "%s -e -p%s \"%s\""%(conn, self.root_pd, sql2)
+            subprocess.call(sql, shell=True)
 
         return True
 
