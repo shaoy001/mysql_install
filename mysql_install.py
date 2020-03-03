@@ -220,7 +220,6 @@ class mysql_install():
         Logger(self.file_name).get_logger().info("start init mysql...")
         result = self.mysql_base + '/bin/mysqld ' + ' --defaults-file=' + self.mysql_data_path + '/my.cnf.' \
                      + self.port + ' --initialize-insecure --user=mysql >>/dev/null 2>&1'
-        print(result)
         if not subprocess.call(result, shell=True) == 0:
             Logger(self.file_name).get_logger().info("mysql init fail")
             return False
@@ -252,7 +251,7 @@ class mysql_install():
         conn = "%s/bin/mysql -S %s/sock/mysql.sock -P%s"%(self.mysql_base, self.mysql_data_path,self.port)
         sql1s = ["delete from mysql.user where user='' or host not in ('localhost')",
                "create user %s@'%%' IDENTIFIED BY '%s'" % (self.user, self.passwd),
-               "GRANT ALL PRIVILEGES ON *.* TO %s@'*'" % (self.user),
+               "GRANT ALL PRIVILEGES ON *.* TO %s@'%%'" % (self.user),
                 "GRANT ALL PRIVILEGES ON *.* TO %s@'localhost' IDENTIFIED BY '%s' WITH GRANT OPTION" % (
                     self.root, self.root_pd)]
         sql2s =  ["GRANT ALL PRIVILEGES ON *.* TO %s@'127.0.0.1' IDENTIFIED BY '%s' WITH GRANT OPTION" % (
