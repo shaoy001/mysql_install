@@ -6,7 +6,7 @@
     Desc   :
     Change LOG :
 """
-import mysql_conn
+
 import os
 import sys
 import tarfile
@@ -42,7 +42,6 @@ class mysql_install():
         self.mysql_document = os.path.join(self.mysql_data_path, self.mysql_package[:-7])
         self.service = os.path.join(self.mysql_base, 'bin', 'mysql.server.' + str(self.port))
         self.file_name = file_name
-        print(sys.path[0])
 
     def run(self):
 
