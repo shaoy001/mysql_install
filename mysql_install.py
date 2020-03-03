@@ -264,7 +264,7 @@ class mysql_install():
             sql = "%s -e \"%s\""%(conn, sql1)
             subprocess.call(sql, shell=True)
         for sql2 in sql2s:
-            sql = "%s -e -p%s \"%s\""%(conn, self.root_pd, sql2)
+            sql = "%s -p%s -e \"%s\""%(conn, self.root_pd, sql2)
             subprocess.call(sql, shell=True)
 
         return True
