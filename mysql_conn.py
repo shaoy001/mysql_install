@@ -85,5 +85,5 @@ class Mysql(object):
 
 
 if __name__ == "__main__":
-    x = MysqlHcm()
+    x = Mysql()
     x.ddl_exc(sql='delete from t1')

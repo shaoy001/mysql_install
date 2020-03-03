@@ -249,19 +249,17 @@ class mysql_install():
         self.hotdb_root_pd = "123456"
         self.user = "lzy001"
         self.passwd = "12345678!"
-
+        conn = "%s/bin/mysql -S %s/sock/mysql.sock -P%s".format(self.mysql_base, self.mysql_data_path,self.port)
         sql = ["delete from mysql.user where user='' or host not in ('localhost')",
                "alter user %s@'localhost' IDENTIFIED BY '%s'" % (self.hotdb_root, self.hotdb_root_pd),
                "create user %s@'%%' IDENTIFIED BY '%s'" % (self.user, self.passwd),
                "GRANT ALL PRIVILEGES ON *.* TO %s@'*'" % (self.user),
                "flush privileges"]
-        self.conn = mysql_conn.Mysql(url='127.0.01',
-                                     user='root',
-                                     password='',
-                                     db='',
-                                     port=self.port)
+
         for sql1 in sql:
-            self.conn.ddl_exc(sql1)
+            sql2 = "%s -e %s".format(conn, sql1)
+            subprocess.call(sql2, shell=True)
+
         return True
 
 
