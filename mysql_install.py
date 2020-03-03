@@ -261,10 +261,8 @@ class mysql_install():
                     self.hotdb_root),
                 "flush privileges"]
 
-
-
         for sql1 in sql:
-            sql2 = "%s -e %s"%(conn, sql1)
+            sql2 = "%s -e \"%s\""%(conn, sql1)
             print(sql2)
             subprocess.call(sql2, shell=True)
 
