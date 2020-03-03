@@ -24,8 +24,8 @@ sys.path.append(pro_path)
 # mysql安装路径
 BASE_PATH_ROOT = '/data/mysqlbase'
 DATA_PATH_ROOT = '/data/mysqldata'
-mysql_cnf = '/data/5.7my.cnf'
-mysqlserver = '/data/mysql.server'
+mysql_cnf = sys.path[0] +'/5.7my.cnf'
+mysqlserver = sys.path[0] + '/mysql.server'
 
 
 class mysql_install():
@@ -42,6 +42,7 @@ class mysql_install():
         self.mysql_document = os.path.join(self.mysql_data_path, self.mysql_package[:-7])
         self.service = os.path.join(self.mysql_base, 'bin', 'mysql.server.' + str(self.port))
         self.file_name = file_name
+        print(sys.path[0])
 
     def run(self):
 
@@ -279,4 +280,4 @@ if __name__ == "__main__":
     parser.add_argument('--connections', type=str, help='mysql instance max_connections', default='300')
     args = parser.parse_args()
     x = mysql_install()
-    x.run()
+    # x.run()

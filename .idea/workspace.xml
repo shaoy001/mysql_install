@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="93cecce8-e423-4e58-889e-7ae0c65b7582" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_install.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_install.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +134,7 @@
       <option name="presentableId" value="Default" />
       <updated>1583059447616</updated>
       <workItem from="1583059449091" duration="7934000" />
-      <workItem from="1583112437472" duration="23519000" />
+      <workItem from="1583112437472" duration="24991000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交">
       <created>1583065977289</created>
@@ -247,7 +248,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583219466245</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="新增日志模块">
+      <created>1583223067764</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1583223067765</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,7 +278,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="新增日志模块" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/mysql_util$mysql_install.coverage" NAME="mysql_install Coverage Results" MODIFIED="1583129041775" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/mysql_util$mysql_install.coverage" NAME="mysql_install Coverage Results" MODIFIED="1583238216491" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mysql_util$test.coverage" NAME="test Coverage Results" MODIFIED="1583122953167" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mysql_util$logs.coverage" NAME="logs Coverage Results" MODIFIED="1583122392114" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
