@@ -279,4 +279,4 @@ if __name__ == "__main__":
     parser.add_argument('--connections', type=str, help='mysql instance max_connections', default='300')
     args = parser.parse_args()
     x = mysql_install()
-    # x.run()
+    x.run()
